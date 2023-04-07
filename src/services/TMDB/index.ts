@@ -3,9 +3,6 @@ import { BASE_CONFIG } from "./constants";
 import { INowPlayingParams, INowPlayingResponse, ITopRatedParams, ITopRatedResponse } from "./types";
 
 export default class TMDBService extends RequestService {
-  /**
-   * METHODS
-   */
   async getNowPlaying(params: INowPlayingParams) {
     const response: INowPlayingResponse = await this.get({
       ...BASE_CONFIG,
