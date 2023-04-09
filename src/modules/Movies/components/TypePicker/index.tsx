@@ -16,7 +16,7 @@ const TypePicker: React.FC<Props> = ({ selecting, onChange }) => {
       >
         Top Rated
       </button>
-      <div className="w-[2px] h-full bg-stone-300 mx-2" />
+      <div className="border-2 h-full bg-stone-300 mx-2" />
       <button
         aria-selected={selecting === SHOW_TYPE.NOW_PLAYING}
         onClick={onChange.bind(this, SHOW_TYPE.NOW_PLAYING)}

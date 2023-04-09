@@ -10,7 +10,7 @@ interface Props {
 
 const ModePicker: React.FC<Props> = ({ selecting, onChange }) => {
   return (
-    <div className="flex px-2 py-1 border-black border-2 rounded-md">
+    <div className="flex px-2 py-1 transition-all border-stone-300 hover:border-black border-2 rounded-md">
       <button
         aria-selected={selecting === SHOW_MODE.GRID}
         onClick={onChange.bind(this, SHOW_MODE.GRID)}

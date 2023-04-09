@@ -1,3 +1,4 @@
+import Footer from "components/Footer";
 import Navbar from "components/Navbar";
 import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router";
@@ -7,7 +8,7 @@ const Root: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.pathname === '/') {
+    if (location.pathname === "/") {
       navigate("/movies");
     }
   }, [location, navigate]);
@@ -16,6 +17,7 @@ const Root: React.FC = () => {
     <div className="min-h-[100vh]">
       <Navbar />
       <Outlet />
+      <Footer />
     </div>
   );
 };
