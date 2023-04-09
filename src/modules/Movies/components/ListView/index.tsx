@@ -3,6 +3,7 @@ import { IMovie } from "types/IMovie";
 
 interface Props {
   movies: IMovie[];
+  loading: boolean;
   onSelect: (movieId: string) => void;
 }
 

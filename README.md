@@ -12,7 +12,7 @@ The following **required** functionality is completed:
 - [x] Add a tab bar for **Now Playing** and **Top Rated** movies.
 - [x] Add a search bar.
 - [x] User can view movie details by tapping on a cell.
-- [ ] User sees loading state while waiting for the API.
+- [x] User sees loading state while waiting for the API.
 - [x] User sees an error message when there is a network error.
 - [x] Simple responsive.
 
@@ -31,20 +31,23 @@ The following **additional** features are implemented:
 
 ## Notes
 
-- Please use ReactJS with typescript
+- Hello there, I used large-scale app in my previous jobs for this (a bit overengineering). But lemme walkthough you the structure a bit:
+  + [Services] contain high level logics, it can be api call, or compination or api calls, or any other service that can be shared between modules
+  + [Modules] contain code logic, a module can have it own child module, and the directory tree is synced with navigation path in router (like [Movies] module sync with [/movies] route)
 
+## Build Instruction
+
+- Run `yarn install` at root level of project
+- Create a `.env.local` file, copy and fullfillment all contents from `.env.example` file
+- Run `yarn build` command, all files will be build inside [dist] directory
+- Now you can dist files into any web server (like Nginx) to run there
+ 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-> Please record screen to a GIF file and attach link here
+https://www.loom.com/share/11051e2dbb544d6a97a76029e5e1a969
 
-## Submit
-
-**When you're done, send us back a link to a repository with your source code, with a description of what you've done and any build instructions in the readme!**
-
-
-> You can use this file as the readme (please update what you've done, build instructions).
 
 ## License
 

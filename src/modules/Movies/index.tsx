@@ -16,15 +16,19 @@ export const Movies: React.FC = () => {
    * QUERIES
    */
 
-  const { data: topRatedData } = useQuery("top-rated", () => TMDBService.getTopRated({}), {
+  const { data: topRatedData, isLoading: topRatedLoading } = useQuery("top-rated", () => TMDBService.getTopRated({}), {
     enabled: type === SHOW_TYPE.TOP_RATED,
   });
 
-  const { data: nowPlayingData } = useQuery("now-playing", () => TMDBService.getNowPlaying({}), {
+  const { data: nowPlayingData, isLoading: nowPlayingLoading } = useQuery("now-playing", () => TMDBService.getNowPlaying({}), {
     enabled: type === SHOW_TYPE.NOW_PLAYING,
   });
 
-  const { data: searchData, refetch } = useQuery("search", () => TMDBService.search({ query: search }), {
+  const {
+    data: searchData,
+    isLoading: searchLoading,
+    refetch,
+  } = useQuery("search", () => TMDBService.search({ query: search }), {
     enabled: type === SHOW_TYPE.SEARCH && search.length >= SEARCH_OFFSET,
   });
 
@@ -50,6 +54,17 @@ export const Movies: React.FC = () => {
         return [];
     }
   }, [type, topRatedData, nowPlayingData, searchData]);
+
+  const loading = useMemo(() => {
+    switch (type) {
+      case SHOW_TYPE.NOW_PLAYING:
+        return nowPlayingLoading;
+      case SHOW_TYPE.SEARCH:
+        return searchLoading;
+      case SHOW_TYPE.TOP_RATED:
+        return topRatedLoading;
+    }
+  }, [nowPlayingLoading, searchLoading, topRatedLoading, type]);
 
   /**
    * EVENT HANDLERS
@@ -92,8 +107,14 @@ export const Movies: React.FC = () => {
           <SearchBar className="w-full mx-2 lg:w-[30%]" onChange={searchHander} />
         </div>
 
-        {mode === SHOW_MODE.GRID && <GridView onSelect={selectHandler} movies={movies} />}
-        {mode === SHOW_MODE.LIST && <ListView onSelect={selectHandler} movies={movies} />}
+        {loading && (
+          <div className="flex h-[200px] w-full justify-start items-center">
+            <p className="font-bold px-2 text-stone-500 text-3xl">GETTING LATEST MOVIES TO YOU..</p>
+          </div>
+        )}
+
+        {mode === SHOW_MODE.GRID && <GridView onSelect={selectHandler} loading={loading} movies={movies} />}
+        {mode === SHOW_MODE.LIST && <ListView onSelect={selectHandler} loading={loading} movies={movies} />}
       </div>
 
       <DetailModal selected={selected} onClose={closeHandler} />
