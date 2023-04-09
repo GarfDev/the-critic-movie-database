@@ -3,7 +3,6 @@ import { SEARCH_OFFSET, SHOW_MODE, SHOW_TYPE } from "./constants";
 import { GridView, ListView, ModePicker, SearchBar, TypePicker } from "./components";
 import { useQuery } from "react-query";
 import { TMDBService } from "services";
-import Modal from "components/Modal";
 import DetailModal from "./components/DetailModal";
 
 export const Movies: React.FC = () => {
@@ -16,17 +15,26 @@ export const Movies: React.FC = () => {
    * QUERIES
    */
 
-  const { data: topRatedData, isLoading: topRatedLoading } = useQuery("top-rated", () => TMDBService.getTopRated({}), {
+  const {
+    data: topRatedData,
+    isLoading: topRatedLoading,
+    isError: topRatedError,
+  } = useQuery("top-rated", () => TMDBService.getTopRated({}), {
     enabled: type === SHOW_TYPE.TOP_RATED,
   });
 
-  const { data: nowPlayingData, isLoading: nowPlayingLoading } = useQuery("now-playing", () => TMDBService.getNowPlaying({}), {
+  const {
+    data: nowPlayingData,
+    isLoading: nowPlayingLoading,
+    isError: nowPlayingError,
+  } = useQuery("now-playing", () => TMDBService.getNowPlaying({}), {
     enabled: type === SHOW_TYPE.NOW_PLAYING,
   });
 
   const {
     data: searchData,
     isLoading: searchLoading,
+    isError: searchError,
     refetch,
   } = useQuery("search", () => TMDBService.search({ query: search }), {
     enabled: type === SHOW_TYPE.SEARCH && search.length >= SEARCH_OFFSET,
@@ -65,6 +73,17 @@ export const Movies: React.FC = () => {
         return topRatedLoading;
     }
   }, [nowPlayingLoading, searchLoading, topRatedLoading, type]);
+
+  const error = useMemo(() => {
+    switch (type) {
+      case SHOW_TYPE.NOW_PLAYING:
+        return nowPlayingError;
+      case SHOW_TYPE.SEARCH:
+        return searchError;
+      case SHOW_TYPE.TOP_RATED:
+        return topRatedError;
+    }
+  }, [nowPlayingError, searchError, topRatedError, type]);
 
   /**
    * EVENT HANDLERS
@@ -110,6 +129,12 @@ export const Movies: React.FC = () => {
         {loading && (
           <div className="flex h-[200px] w-full justify-start items-center">
             <p className="font-bold px-2 text-stone-500 text-3xl">GETTING LATEST MOVIES TO YOU..</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="flex h-[200px] w-full justify-start items-center">
+            <p className="font-bold px-2 text-red-500 text-3xl">SOME ERROR HAPPENED WHILE FETCHING MOVIES DATA..</p>
           </div>
         )}
 
