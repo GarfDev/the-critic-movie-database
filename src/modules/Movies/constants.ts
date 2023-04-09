@@ -8,3 +8,5 @@ export enum SHOW_MODE {
   LIST,
   GRID,
 }
+
+export const SEARCH_OFFSET = 3;

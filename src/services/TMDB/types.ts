@@ -7,7 +7,7 @@ export interface INowPlayingParams {
   region?: string;
 }
 
-export type INowPlayingResponse = AxiosResponse<{
+export type IListResponse = AxiosResponse<{
   page: number;
   results: IMovie[];
   total_pages: number;
@@ -18,5 +18,21 @@ export type INowPlayingResponse = AxiosResponse<{
   };
 }>;
 
+export type INowPlayingResponse = IListResponse;
+
 export type ITopRatedParams = INowPlayingParams;
 export type ITopRatedResponse = INowPlayingResponse;
+
+export interface ISearchParams extends INowPlayingParams {
+  query?: string;
+}
+
+export type ISearchResponse = IListResponse;
+
+export interface IMovieDetailParams {
+  id: string;
+}
+
+export interface IMovieDetailResponse {
+  data: IMovie;
+}

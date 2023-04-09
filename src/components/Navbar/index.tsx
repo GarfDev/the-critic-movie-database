@@ -14,9 +14,6 @@ const Navbar: React.FC<Props> = ({ className }) => {
           <Link to="/movies">
             <p className={`${LINK_BASE_CLASSES} mr-7`}>Movies</p>
           </Link>
-          <Link to="/about">
-            <p className={`${LINK_BASE_CLASSES}`}>About</p>
-          </Link>
         </div>
       </div>
     </nav>
@@ -25,4 +22,4 @@ const Navbar: React.FC<Props> = ({ className }) => {
 
 export default Navbar;
 
-const LINK_BASE_CLASSES = 'font-bold text-lg hover:text-stone-500 transition-all'
+const LINK_BASE_CLASSES = "font-bold text-lg hover:text-stone-500 transition-all";
