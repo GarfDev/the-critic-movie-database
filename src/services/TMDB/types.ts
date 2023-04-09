@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { IMovie } from "types/IMovie";
+import { IMovie, IMovieDetail } from "types/IMovie";
 
 export interface INowPlayingParams {
   language?: string;
@@ -34,5 +34,5 @@ export interface IMovieDetailParams {
 }
 
 export interface IMovieDetailResponse {
-  data: IMovie;
+  data: IMovieDetail;
 }
