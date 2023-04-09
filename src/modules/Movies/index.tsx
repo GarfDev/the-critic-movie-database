@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { SHOW_MODE, SHOW_TYPE } from "./constants";
-import { GridView, ModePicker, SearchBar, TypePicker } from "./components";
+import { GridView, ListView, ModePicker, SearchBar, TypePicker } from "./components";
 import { useQuery } from "react-query";
 import { TMDBService } from "services";
 
 export const Movies: React.FC = () => {
-  const [mode, setMode] = useState(SHOW_MODE.GRID);
+  const [mode, setMode] = useState(SHOW_MODE.LIST);
   const [type, setType] = useState(SHOW_TYPE.TOP_RATED);
   const [search, setSearch] = useState("");
 
@@ -56,7 +56,8 @@ export const Movies: React.FC = () => {
           <SearchBar className="w-full mx-2 lg:w-[30%]" onChange={searchHander} />
         </div>
 
-        <GridView movies={movies} />
+        {mode === SHOW_MODE.GRID && <GridView movies={movies} />}
+        {mode === SHOW_MODE.LIST && <ListView movies={movies} />}
       </div>
     </div>
   );

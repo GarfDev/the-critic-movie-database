@@ -2,9 +2,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useIsInViewport } from "hooks";
 
 /* eslint-disable jsx-a11y/alt-text */
-interface Props extends React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> {}
+interface Props extends React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> {
+  imgClassname?: string;
+}
 
-const LazyImage: React.FC<Props> = ({ src, ...rest }) => {
+const LazyImage: React.FC<Props> = ({ imgClassname, src, ...rest }) => {
   const ref = useRef<HTMLImageElement>(null!);
   const [loaded, setLoaded] = useState(false);
 
@@ -26,13 +28,13 @@ const LazyImage: React.FC<Props> = ({ src, ...rest }) => {
   }, [isInViewport, src]);
 
   /**
-   * MAIN RETURN
+   * MAIN RETURN6
    */
 
   return (
     <div ref={ref} {...rest} className={"" +  rest.className}>
-      {showRealImage && <img {...rest} className="transition-opacity ease-in duration-700 opacity-100" src={"https://image.tmdb.org/t/p/w500/" + src} />}
-      {!showRealImage && <div className="absolute top-0 left-0 w-full h-full animate-pulse bg-stone-200" />}
+      {showRealImage && <img {...rest} className={"w-full h-full object-cover transition-opacity ease-in duration-700 opacity-100" + imgClassname} src={"https://image.tmdb.org/t/p/w500/" + src} />}
+      {!showRealImage && <div className={"absolute top-0 left-0 w-full h-full animate-pulse bg-stone-200 " + imgClassname} />}
     </div>
   );
 };
